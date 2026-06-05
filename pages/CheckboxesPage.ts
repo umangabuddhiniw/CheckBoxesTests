@@ -10,9 +10,8 @@ export class CheckboxesPage {
   constructor(page: Page) {
     this.page = page;
 
-    this.checkboxes = page.locator(
-      '#checkboxes input[type="checkbox"]'
-    );
+    this.checkboxes =
+      page.locator('#checkboxes input[type="checkbox"]');
 
     this.checkbox1 = this.checkboxes.nth(0);
     this.checkbox2 = this.checkboxes.nth(1);
@@ -32,13 +31,13 @@ export class CheckboxesPage {
     ).toBeVisible();
   }
 
-  async verifyCheckboxCount(expectedCount: number): Promise<void> {
-    await expect(this.checkboxes).toHaveCount(expectedCount);
-  }
-
   async verifyDefaultStates(): Promise<void> {
     await expect(this.checkbox1).not.toBeChecked();
     await expect(this.checkbox2).toBeChecked();
+  }
+
+  async verifyCheckboxCount(count: number): Promise<void> {
+    await expect(this.checkboxes).toHaveCount(count);
   }
 
   async checkCheckbox1(): Promise<void> {
@@ -55,27 +54,5 @@ export class CheckboxesPage {
 
   async uncheckCheckbox2(): Promise<void> {
     await this.checkbox2.uncheck();
-  }
-
-  async checkAll(): Promise<void> {
-    await this.checkbox1.check();
-    await this.checkbox2.check();
-  }
-
-  async uncheckAll(): Promise<void> {
-    await this.checkbox1.uncheck();
-    await this.checkbox2.uncheck();
-  }
-
-  async toggleCheckbox1(times: number): Promise<void> {
-    for (let i = 0; i < times; i++) {
-      await this.checkbox1.click();
-    }
-  }
-
-  async toggleCheckbox2(times: number): Promise<void> {
-    for (let i = 0; i < times; i++) {
-      await this.checkbox2.click();
-    }
   }
 }
